@@ -1,2 +1,2 @@
 # imageEditor
-Image editor made with python using a module called pillow
+Image editor made with python 3.6.4 using a module called pillow
