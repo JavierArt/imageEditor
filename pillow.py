@@ -130,12 +130,20 @@ except:
     time.sleep(3)
     exit(0)
 
+def saveimg(confirm, gen_img):
+	if confirm=="s" or confirm=="S":
+		name=input("Dime el nombre con extension:")
+		gen_img.save(name)
+	elif confirm=="n" or confirm=="N":
+		print("Imagen no guardada")
+
 def information(img):
     """prints information from the opened image"""
     try:
         print("Tamaño:{}".format(img.size))
         print("Formato:{}".format(img.format))
         print("Modo:{}".format(img.mode))
+        img.show()
         input("Enter para continuar")
     except:
         print("No se pudo realizar la operacion")
@@ -146,26 +154,22 @@ def cropp(img):
     print("1.cuadrado\n2.definir area")
     h=input("Seleccione una opcion:")
     try:
-        print("Tamaño de la imagen escogida")
-        print(img.size)
-        if h == "1":
-            val=input("Seleccione el valor a cortar:")
-            cropped_img = PIL.ImageOps.crop(img, border=int(val))
-        elif h == "2":
-            prim=input("Seleccione el primer valor 1 arriba izquierda (hacia derecha):")
-            seg=input("Seleccione el segundo valor 2 arriba izquierda (hacia abajo):")
-            ter=input("Seleccione el tercer valor 3 abajo derecha (hacia derecha):")
-            cuar=input("Seleccione el cuarto valor 4 abajo derecha (hacia abajo):")
-            area = (int(prim),int(seg),int(ter),int(cuar))
-            cropped_img = img.crop(area)
-        print(cropped_img.size)
-        cropped_img.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            cropped_img.save(name)
-        elif yn=="n":
-            print("Imagen no guardada")
+	    print("Tamaño de la imagen escogida")
+	    print(img.size)
+	    if h == "1":
+	        val=input("Seleccione el valor a cortar:")
+	        cropped_img = PIL.ImageOps.crop(img, border=int(val))
+	    elif h == "2":
+	        prim=input("Seleccione el primer valor 1 arriba izquierda (hacia derecha):")
+	        seg=input("Seleccione el segundo valor 2 arriba izquierda (hacia abajo):")
+	        ter=input("Seleccione el tercer valor 3 abajo derecha (hacia derecha):")
+	        cuar=input("Seleccione el cuarto valor 4 abajo derecha (hacia abajo):")
+	        area = (int(prim),int(seg),int(ter),int(cuar))
+	        cropped_img = img.crop(area)
+	    print(cropped_img.size)
+	    cropped_img.show()
+	    yn = input("Quieres guardar(s/n):")
+	    saveimg(yn, cropped_img)
     except:
         print("El area elegida excede el tamaño de la imagen")
 
@@ -175,26 +179,14 @@ def channels(img):
         print(img.mode)
         r, g, b = img.split()
         r.show()
-        ynr=input("Quieres guardar(red)(y/n):")
-        if ynr=="y":
-            name=input("Dime el nombre con extension:")
-            r.save(name)
-        elif ynr=="n":
-            print("Imagen(rojo) no guardada")
+        ynr=input("Quieres guardar(red)(s/n):")
+        saveimg(ynr,r)
         g.show()
-        yng=input("Quieres guardar(green)(y/n):")
-        if yng=="y":
-            name=input("Dime el nombre con extension:")
-            g.save(name)
-        elif yng=="n":
-            print("Imagen(verde) no guardada")
+        yng=input("Quieres guardar(green)(s/n):")
+        saveimg(yng, g)
         b.show()
-        ynb=input("Quieres guardar(blue)(y/n):")
-        if ynb=="y":
-            name=input("Dime el nombre con extension:")
-            b.save(name)
-        elif ynb=="n":
-            print("Imagen(azul) no guardada")
+        ynb=input("Quieres guardar(blue)(s/n):")
+        saveimg(ynb, b)
     except:
         print("No se pudo realizar la operacion")
 
@@ -217,12 +209,8 @@ def merge(img):
         else:
             print("Esa no vale")
         new_img.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            new_img.save(name)
-        elif yn=="n":
-            print("Imagen no guardada")
+        yn=input("Quieres guardar(s/n):")
+        saveimg(yn,new_img)
     except:
         print("No se pudo realizar la operacion")
 
@@ -250,8 +238,8 @@ def merge2():
             third=input("Seleccione el parametro:")
             new_pic = PIL.Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
             new_pic.show()
-            yn=input("Quieres guardar(y/n):")
-            if yn=="y":
+            yn=input("Quieres guardar(s/n):")
+            if yn=="s":
                 quality_val=90
                 name=input("Dime el nombre con extension:")
                 new_pic.save(name,quality=quality_val)
@@ -280,10 +268,11 @@ def merge2():
             third=input("Seleccione el parametro:")
             new_pic = PIL.Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
             new_pic.show()
-            yn=input("Quieres guardar(y/n):")
+            yn = input("Quieres guardar(s/n):")
             if yn=="y":
-                name=input("Dime el nombre con extension:")
-                new_pic.save(name)
+            	quality_val=90
+            	name=input("Dime el nombre con extension:")
+            	new_pic.save(name,quality=quality_val)
             elif yn=="n":
                 print("Imagen no guardada")
         else:
@@ -298,13 +287,8 @@ def resize(img):
         second=input("Ingresa coordenada 2:")
         resized = img.resize((int(first),int(second)),PIL.Image.ANTIALIAS)
         resized.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            quality_val=90
-            name=input("Dime el nombre con extension:")
-            resized.save(name,quality=quality_val)
-        elif yn=="n":
-            print("Imagen no guardada")
+        yn=input("Quieres guardar(s/n):")
+        saveimg(yn,resized)
     except:
         print("No se pudo realizar la operacion")
 
@@ -320,12 +304,8 @@ def fliplr(img):
         else:
             print("Esa no vale")
         flippic.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            flippic.save(name)
-        elif yn=="n":
-                print("Imagen no guardada")
+        yn=input("Quieres guardar(s/n):")
+        saveimg(yn,flippic)
     except:
         print("No se pudo realizar la operacion")
 
@@ -346,7 +326,7 @@ def rotate(img):
         else:
             print("Esa no vale")
         rotpic.show()
-        yn=input("Quieres guardar(y/n):")
+        yn=input("Quieres guardar(s/n):")
         if yn=="y":
             quality_val=90
             name=input("Dime el nombre con extension:")
@@ -365,12 +345,8 @@ def _clipboard_copyC3(inst):
             seleccionC1=inst['text']
             coloriza = ImageOps.colorize(picL, seleccionC1, "black")
             coloriza.show()
-            yn=input("Quieres guardar(y/n):")
-            if yn=="y":
-                name=input("Dime el nombre con extension:")
-                final.save(name)
-            elif yn=="n":
-                print("Imagen no guardada")
+            yn=input("Quieres guardar(s/n):")
+            saveimg(yn,coloriza)
             print("Por favor, cierre la paleta de colores manualmente")
         except:
             print("No se pudo realizar la operacion")
@@ -380,56 +356,50 @@ def _clipboard_copyC3(inst):
 def paste():
     """takes some pictures and paste them together"""
     try:
-        img1=input("Escriba la ruta, el nombre y formato de la 1ra imagen a pegar:")
-        img2=input("Escriba la ruta, el nombre y formato de la 2da imagen a pegar:")
-        imagen1 = PIL.Image.open(img1)
-        imagen2 = PIL.Image.open(img2)
-        witdh1,height1 = imagen1.size
-        witdh2,height2 = imagen2.size
-        print("1.Acostada\n2.parada")
-        opc2=input("Como deseas colocar la imagen")
-        if opc2 == "1":
-            if height1>height2:
-                tamano_height = height1
-            elif height2>height1:
-                tamano_height = height2
-            else:
-                tamano_height = height1
-            final = PIL.Image.new("RGB",(witdh1+witdh2,tamano_height),"black")
-            final.paste(imagen1,(0,0))
-            final.paste(imagen2,(witdh1,0))
-        if opc2 == "2":
-            if witdh1>witdh2:
-                tamano_witdh=witdh1
-            elif witdh2>witdh1:
-                tamano_witdh=witdh2
-            else:
-                tamano_witdh=witdh1
-            final = PIL.Image.new("RGB",(tamano_witdh,height1+height2),"black")
-            final.paste(imagen1,(0,0))
-            final.paste(imagen2,(0,height1))
-        final.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            final.save(name)
-        elif yn=="n":
-            print("Imagen no guardada")
+	    pic1=input("Escriba la ruta, el nombre y formato de la 1ra imagen a pegar:")
+	    pic2=input("Escriba la ruta, el nombre y formato de la 2da imagen a pegar:")
+	    img1=pic1.replace("\"","")
+	    img2=pic2.replace("\"","")
+	    imagen1 = PIL.Image.open(img1)
+	    imagen2 = PIL.Image.open(img2)
+	    witdh1,height1 = imagen1.size
+	    witdh2,height2 = imagen2.size
+	    print("1.Acostada\n2.parada")
+	    opc2=input("Como deseas colocar la imagen")
+	    if opc2 == "1":
+	        if height1>height2:
+	            tamano_height = height1
+	        elif height2>height1:
+	            tamano_height = height2
+	        else:
+	            tamano_height = height1
+	        final = PIL.Image.new("RGB",(witdh1+witdh2,tamano_height),"black")
+	        final.paste(imagen1,(0,0))
+	        final.paste(imagen2,(witdh1,0))
+	    if opc2 == "2":
+	        if witdh1>witdh2:
+	            tamano_witdh=witdh1
+	        elif witdh2>witdh1:
+	            tamano_witdh=witdh2
+	        else:
+	            tamano_witdh=witdh1
+	        final = PIL.Image.new("RGB",(tamano_witdh,height1+height2),"black")
+	        final.paste(imagen1,(0,0))
+	        final.paste(imagen2,(0,height1))
+	    final.show()
+	    yn=input("Quieres guardar(s/n):")
+	    saveimg(yn,final)
     except:
         print("No se pudo realizar la operacion")
 
 def thumbnail(img):
     """takes a  picture an converts it to a thumbnail"""
     try:
-        miniatura = (160,120)
-        img.thumbnail(miniatura)
-        img.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            copy.save(name)
-        elif yn=="n":
-            print("Imagen no guardada")
+	    miniatura = (160,120)
+	    img.thumbnail(miniatura)
+	    img.show()
+	    yn=input("Quieres guardar(s/n):")
+	    saveimg(yn,img)
     except:
         print("No se pudo realizar la operacion")
 
@@ -479,12 +449,8 @@ def _clipboard_copyT2(inst):
 	            print("Esa no vale")
 	        final = PIL.Image.alpha_composite(img2,texto)
 	        final.show()
-	        yn=input("Quieres guardar(y/n):")
-	        if yn=="y":
-	            name=input("Dime el nombre con extension:")
-	            final.save(name)
-	        elif yn=="n":
-	                print("Imagen no guardada")
+	        yn=input("Quieres guardar(s/n):")
+	        saveimg(yn,final)
 	        print("Por favor cierre la paleta de colores manualmente")
         except:
             print("No se pudo realizar la operacion")
@@ -526,12 +492,8 @@ def _clipboard_copy(inst):
             else:
                 print("No puedo añadir bordes")
             imgborde.show()
-            yn=input("Quieres guardar(y/n):")
-            if yn=="y":
-                name=input("Dime el nombre con extension:")
-                img.save(name)
-            elif yn=="n":
-                print("Imagen no guardada")
+            yn = input("Quieres guardar(s/n):")
+            saveimg(yn,imgborde)
             print("Por favor cierre la paleta de colores manualmente")
         except:
             print("No se pudo realizar la operacion")
@@ -576,12 +538,8 @@ def convertmodes(img):
             print("Esa no vale")
         print(conpic.mode)
         conpic.show()
-        yn=input("Quieres guardar(y/n):")
-        if yn=="y":
-            name=input("Dime el nombre con extension:")
-            conpic.save(name)
-        elif yn=="n":
-            print("Imagen no guardada")
+        yn=input("Quieres guardar(s/n):")
+        saveimg(yn,conpic)
     except:
         print("no se pudo realizar la operacion")
 
@@ -598,12 +556,9 @@ def black_and_white_less(img):
             else:
                 img.putpixel((w, h), (200, 200, 200))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
+
 
 def thresholds(img):
     """take an image and put it thresholds"""
@@ -622,12 +577,8 @@ def thresholds(img):
             else:
                 copy.putpixel((w, h), (gray, gray, gray))
     copy.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        copy.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,copy)
 
 def thresholdsless(img):
     """take an image and put it thresholds less"""
@@ -645,12 +596,9 @@ def thresholdsless(img):
             else:
                 img.putpixel((w, h), (gray, gray, gray))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
+
 
 def juno(img):
     """takes an image and put it"""
@@ -660,12 +608,9 @@ def juno(img):
             r, g, b = img.getpixel((w, h))
             pre=img.putpixel((w,h),(r,g+50,b+70))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
+
 
 def juno2(img):
     """takes an image and put it"""
@@ -679,12 +624,9 @@ def juno2(img):
             BD=b*2
             img.putpixel((w,h),(BD,BD,BD))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
+
 
 def average(img):
     """take an image and put it average"""
@@ -703,12 +645,8 @@ def average(img):
                            (b1+b2+b3+b4+b5)//5)
                 img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def average_allneighbors(img):
     """take an image and put  it Average All Neighbors"""
@@ -731,12 +669,8 @@ def average_allneighbors(img):
                            (b1+b2+b3+b4+b5+b6+b7+b8+b9)//9)
                 img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def sepia(img):
     """take an image and put it sepia"""
@@ -757,12 +691,8 @@ def sepia(img):
                 b = 0
             img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def notgray(img):
     """take an image and put it sepia"""
@@ -776,12 +706,8 @@ def notgray(img):
             b = b - (sepia_intensity*2)
             img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def sepiaDF(img):
     """take an image and put it sepia more"""
@@ -796,12 +722,8 @@ def sepiaDF(img):
             b = gray - sepia_intensity
             img.putpixel((w, h), (r+100, g+50, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def sepiaDFless(img):
     """take an image and put it sepia more"""
@@ -822,12 +744,8 @@ def sepiaDFless(img):
                 b = 0
             img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def sepiaDFlessD(img):
     """take an image and put it sepia more"""
@@ -848,12 +766,8 @@ def sepiaDFlessD(img):
                 b = 0
             img.putpixel((w, h), (r, g, b))
     img.show()
-    yn=input("Quieres guardar(y/n):")
-    if yn=="y":
-        name=input("Dime el nombre con extension:")
-        img.save(name)
-    elif yn=="n":
-        print("Imagen no guardada")
+    yn=input("Quieres guardar(s/n):")
+    saveimg(yn,img)
 
 def filterr(img):
     """takes a picture and puts a fliter on it"""
@@ -954,12 +868,8 @@ def filterr(img):
         else:
             print("Esa no vale")
         if int(i) <=21 and int(i)!=0:
-            yn=input("Quieres guardar(y/n):")
-            if yn=="y":
-                name=input("Dime el nombre con extension:")
-                filpic.save(name)
-            elif yn=="n":
-                print("Imagen no guardada")
+            yn=input("Quieres guardar(s/n):")
+            saveimg(yn,filpic)
     except:
         print("No se pudo realizar la operacion")
 
