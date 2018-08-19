@@ -24,4 +24,5 @@ python pillow.py
 
 o haciendo doble click en el archivo, despues puedes arrastar la imagen a editara la consola y usar las opciones que existen escogiendola con los numeros del teclado y presionando enter 
 
-![imagen original]("/pillow try/beth.png")
+En la carpeta del repositorio "pillow try" se pueden ver algunos ejemplos de la edicion que se puede hacer con el script
+algunas de estas imagenes fueron sacadas de los instagram "innamoll" y "bethcast20"
