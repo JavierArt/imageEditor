@@ -23,3 +23,5 @@ python pillow.py
 ,antes debes navegar a la carpeta donde esta el script,
 
 o haciendo doble click en el archivo, despues puedes arrastar la imagen a editara la consola y usar las opciones que existen escogiendola con los numeros del teclado y presionando enter 
+
+![imagen original]("/pillow try/beth.png")
