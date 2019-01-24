@@ -1,6 +1,6 @@
-from PIL import ImageFilter,ImageOps,ImageDraw,ImageFont,ImageEnhance
+from PIL import ImageFilter, ImageOps, ImageDraw,ImageFont,ImageEnhance
 from tkinter import *
-import PIL.Image
+from PIL import Image
 from os import listdir
 import time
 
@@ -124,7 +124,7 @@ COLORS = ['snow', 'ghostwhite', 'whitesmoke', 'gainsboro', 'floralwhite', 'old l
 pic=input("Arrastre el archivo escriba la ruta, el nombre y extension de la imagen a modificar:")
 picture=pic.replace("\"","")
 try:
-    img = PIL.Image.open(picture)
+    img = Image.open(picture)
 except:
     print("No se encontro la imagen, el programa se cerrara")
     time.sleep(3)
@@ -144,7 +144,6 @@ def information(img):
         print("Formato:{}".format(img.format))
         print("Modo:{}".format(img.mode))
         img.show()
-        input("Enter para continuar")
     except:
         print("No se pudo realizar la operacion")
 
@@ -158,7 +157,7 @@ def cropp(img):
 	    print(img.size)
 	    if h == "1":
 	        val=input("Seleccione el valor a cortar:")
-	        cropped_img = PIL.ImageOps.crop(img, border=int(val))
+	        cropped_img = ImageOps.crop(img, border=int(val))
 	    elif h == "2":
 	        prim=input("Seleccione el primer valor 1 arriba izquierda (hacia derecha):")
 	        seg=input("Seleccione el segundo valor 2 arriba izquierda (hacia abajo):")
@@ -197,15 +196,15 @@ def merge(img):
         print("1.rbg\n2.brg\n3.bgr\n4.grb\n5.gbr\n")
         opc=input("Seleccione una opcion:")
         if opc=="1":
-            new_img = PIL.Image.merge("RGB",(r,b,g))
+            new_img = Image.merge("RGB",(r,b,g))
         elif opc=="2":
-            new_img = PIL.Image.merge("RGB",(b,r,g))
+            new_img = Image.merge("RGB",(b,r,g))
         elif opc=="3":
-            new_img = PIL.Image.merge("RGB",(b,g,r))
+            new_img = Image.merge("RGB",(b,g,r))
         elif opc=="4":
-            new_img = PIL.Image.merge("RGB",(g,r,b))
+            new_img = Image.merge("RGB",(g,r,b))
         elif opc=="5":
-            new_img = PIL.Image.merge("RGB",(g,b,r))
+            new_img = Image.merge("RGB",(g,b,r))
         else:
             print("Esa no vale")
         new_img.show()
@@ -225,10 +224,10 @@ def merge2():
             picture1=pic.replace("\"","")
             pic2=input("Escriba la ruta, el nombre y formato de la segunda imagen a unir:")
             picture2=pic2.replace("\"","")
-            img = PIL.Image.open(picture1)
+            img = Image.open(picture1)
             an,lar=img.size
-            img2 = PIL.Image.open(picture2)
-            resized = img2.resize((an,lar),PIL.Image.ANTIALIAS)
+            img2 = Image.open(picture2)
+            resized = img2.resize((an,lar),Image.ANTIALIAS)
             r1,g1,b1 = img.split()
             r2,g2,b2 = resized.split()
             diccionario={"1":r1,"2":g1,"3":b1,"4":r2,"5":g2,"6":b2}
@@ -236,7 +235,7 @@ def merge2():
             first=input("Seleccione el parametro:")
             second=input("Seleccione el parametro:")
             third=input("Seleccione el parametro:")
-            new_pic = PIL.Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
+            new_pic = Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
             new_pic.show()
             yn=input("Quieres guardar(s/n):")
             if yn=="s":
@@ -252,11 +251,11 @@ def merge2():
             picture2=pic22.replace("\"","")
             pic23=input("Escriba la ruta, el nombre y formato de la imagen a modificar:")
             picture3=pic23.replace("\"","")
-            img = PIL.Image.open(picture1)
+            img = Image.open(picture1)
             ancho,largo=img.size
-            img2 = PIL.Image.open(picture2)
+            img2 = Image.open(picture2)
             resized = img.resize((ancho,largo))
-            img3 = PIL.Image.open(picture3)
+            img3 = Image.open(picture3)
             resized2 = img.resize((ancho,largo))
             r1,g1,b1 = img.split()
             r2,g2,b2 = resized.split()
@@ -266,7 +265,7 @@ def merge2():
             first=input("Seleccione el parametro:")
             second=input("Seleccione el parametro:")
             third=input("Seleccione el parametro:")
-            new_pic = PIL.Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
+            new_pic = Image.merge("RGB",(diccionario[first],diccionario[second],diccionario[third]))
             new_pic.show()
             yn = input("Quieres guardar(s/n):")
             if yn=="y":
@@ -285,7 +284,7 @@ def resize(img):
     try:
         first=input("Ingresa coordenada 1:")
         second=input("Ingresa coordenada 2:")
-        resized = img.resize((int(first),int(second)),PIL.Image.ANTIALIAS)
+        resized = img.resize((int(first),int(second)),Image.ANTIALIAS)
         resized.show()
         yn=input("Quieres guardar(s/n):")
         saveimg(yn,resized)
@@ -298,9 +297,9 @@ def fliplr(img):
         print("1.FLIP_TOP_BOTTOM\n2.FLIP_LEFT_RIGHT")
         y=input("Seleccione una opcion:")
         if y == "1":
-            flippic= img.transpose(PIL.Image.FLIP_TOP_BOTTOM)
+            flippic= img.transpose(Image.FLIP_TOP_BOTTOM)
         elif y == "2":
-            flippic= img.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+            flippic= img.transpose(Image.FLIP_LEFT_RIGHT)
         else:
             print("Esa no vale")
         flippic.show()
@@ -315,11 +314,11 @@ def rotate(img):
         print("1.90\n2.180\n3.270\n4.definir num grados")
         z=input("Elija una opcion:")
         if z == "1":
-            rotpic= img.transpose(PIL.Image.ROTATE_90)
+            rotpic= img.transpose(Image.ROTATE_90)
         elif z == "2":
-            rotpic= img.transpose(PIL.Image.ROTATE_180)
+            rotpic= img.transpose(Image.ROTATE_180)
         elif z == "3":
-            rotpic= img.transpose(PIL.Image.ROTATE_270)
+            rotpic= img.transpose(Image.ROTATE_270)
         elif z=="4":
             grad=input("Cuantos grados deseas rotar la imagen:")
             rotpic=img.rotate(int(grad))
@@ -360,8 +359,8 @@ def paste():
 	    pic2=input("Escriba la ruta, el nombre y formato de la 2da imagen a pegar:")
 	    img1=pic1.replace("\"","")
 	    img2=pic2.replace("\"","")
-	    imagen1 = PIL.Image.open(img1)
-	    imagen2 = PIL.Image.open(img2)
+	    imagen1 = Image.open(img1)
+	    imagen2 = Image.open(img2)
 	    witdh1,height1 = imagen1.size
 	    witdh2,height2 = imagen2.size
 	    print("1.Acostada\n2.parada")
@@ -373,7 +372,7 @@ def paste():
 	            tamano_height = height2
 	        else:
 	            tamano_height = height1
-	        final = PIL.Image.new("RGB",(witdh1+witdh2,tamano_height),"black")
+	        final = Image.new("RGB",(witdh1+witdh2,tamano_height),"black")
 	        final.paste(imagen1,(0,0))
 	        final.paste(imagen2,(witdh1,0))
 	    if opc2 == "2":
@@ -383,7 +382,7 @@ def paste():
 	            tamano_witdh=witdh2
 	        else:
 	            tamano_witdh=witdh1
-	        final = PIL.Image.new("RGB",(tamano_witdh,height1+height2),"black")
+	        final = Image.new("RGB",(tamano_witdh,height1+height2),"black")
 	        final.paste(imagen1,(0,0))
 	        final.paste(imagen2,(0,height1))
 	    final.show()
@@ -420,9 +419,9 @@ def _clipboard_copyT2(inst):
 	        print("1.arriba izquierda\n2.abajo izquierda\n3.titulo\n4.personalizado")
 	        pos=input("seleccione una posicion:")
 	        img2 = img.convert("RGBA")#aqui
-	        texto = PIL.Image.new('RGBA',img2.size,(255,255,255,0))
-	        fuente = PIL.ImageFont.truetype(font,int(siz))
-	        dibujo = PIL.ImageDraw.Draw(texto)
+	        texto = Image.new('RGBA',img2.size,(255,255,255,0))
+	        fuente = ImageFont.truetype(font,int(siz))
+	        dibujo = ImageDraw.Draw(texto)
 	        if pos == "1":
 	            dibujo.text((0,0),tex,font=fuente,fill=seleccionT)
 	        elif pos == "2":
@@ -447,7 +446,7 @@ def _clipboard_copyT2(inst):
 	            dibujo.text((int(wit),int(hei)),tex,font=fuente,fill=seleccionT)
 	        else:
 	            print("Esa no vale")
-	        final = PIL.Image.alpha_composite(img2,texto)
+	        final = Image.alpha_composite(img2,texto)
 	        final.show()
 	        yn=input("Quieres guardar(s/n):")
 	        saveimg(yn,final)
@@ -459,7 +458,7 @@ def _clipboard_copyT2(inst):
 
 def Drawing(img):
     try:
-        drawpic=PIL.ImageDraw.Draw(img)
+        drawpic=ImageDraw.Draw(img)
         witdh,height=img.size
         tam=input("Que tamaño de letra usaras?")
         print("1.arriba\n2.abajo\n3.altura personalizada")
@@ -485,10 +484,8 @@ def _clipboard_copy(inst):
             inst.clipboard_clear()
             seleccion=inst['text']
             mode=img.mode
-            if mode=="RGB":
-                imgborde = PIL.ImageOps.expand(img, border=int(tam), fill=seleccion)
-            elif mode == "P":
-                imgborde = PIL.ImageOps.expand(img,border=int(tam), fill=seleccion)
+            if mode=="RGB" or mode == "P":
+                imgborde = ImageOps.expand(img, border=int(tam), fill=seleccion)
             else:
                 print("No puedo añadir bordes")
             imgborde.show()
@@ -778,67 +775,67 @@ def filterr(img):
 14.SOLARIZE\t\t28.ORANGE\n15.NEGATIVE\t\t29.VALENCIA""")
         i=input("Seleccione una opcion:")
         if i == "1":
-            filpic=img.filter(PIL.ImageFilter.BLUR)
+            filpic=img.filter(ImageFilter.BLUR)
             filpic.show()
         elif i == "2":
-            filpic=img.filter(PIL.ImageFilter.DETAIL)
+            filpic=img.filter(ImageFilter.DETAIL)
             filpic.show()
         elif i == "3":
-            filpic=img.filter(PIL.ImageFilter.CONTOUR)
+            filpic=img.filter(ImageFilter.CONTOUR)
             filpic.show()
         elif i == "4":
-            filpic=img.filter(PIL.ImageFilter.EDGE_ENHANCE)
+            filpic=img.filter(ImageFilter.EDGE_ENHANCE)
             filpic.show()
         elif i == "5":
-            filpic= img.filter(PIL.ImageFilter.EDGE_ENHANCE_MORE)
+            filpic= img.filter(ImageFilter.EDGE_ENHANCE_MORE)
             filpic.show()
         elif i == "6":
-            filpic= img.filter(PIL.ImageFilter.EMBOSS)
+            filpic= img.filter(ImageFilter.EMBOSS)
             filpic.show()
         elif i == "7":
-            filpic= img.filter(PIL.ImageFilter.FIND_EDGES)
+            filpic= img.filter(ImageFilter.FIND_EDGES)
             filpic.show()
         elif i == "8":
-            filpic= img.filter(PIL.ImageFilter.SMOOTH)
+            filpic= img.filter(ImageFilter.SMOOTH)
             filpic.show()
         elif i == "9":
-            filpic= img.filter(PIL.ImageFilter.SMOOTH_MORE)
+            filpic= img.filter(ImageFilter.SMOOTH_MORE)
             filpic.show()
         elif i == "10":
-            filpic= img.filter(PIL.ImageFilter.SHARPEN)
+            filpic= img.filter(ImageFilter.SHARPEN)
             filpic.show()
         elif i == "11":
-            filpic = PIL.ImageEnhance.Sharpness(img).enhance(9)
+            filpic = ImageEnhance.Sharpness(img).enhance(9)
             filpic.show()
         elif i =="12":
-            filpic= PIL.ImageOps.grayscale(img)
+            filpic= ImageOps.grayscale(img)
             filpic.show()
         elif i == "13":
-            filpic= PIL.ImageOps.posterize(img,1)
+            filpic= ImageOps.posterize(img,1)
             filpic.show()
         elif i == "14":
-            filpic = PIL.ImageOps.solarize(img)
+            filpic = ImageOps.solarize(img)
             filpic.show()
         elif i =="15":
-            filpic = PIL.ImageOps.invert(img)
+            filpic = ImageOps.invert(img)
             filpic.show()
         elif i == "16":
-            filpic = PIL.ImageEnhance.Contrast(img).enhance(-2)
+            filpic = ImageEnhance.Contrast(img).enhance(-2)
             filpic.show()
         elif i == "17":
-            filpic = PIL.ImageEnhance.Contrast(img).enhance(-7)
+            filpic = ImageEnhance.Contrast(img).enhance(-7)
             filpic.show()
         elif i == "18":
-            filpic= PIL.ImageOps.equalize(img)
+            filpic= ImageOps.equalize(img)
             filpic.show()
         elif i == "19":
-            filpic = PIL.ImageEnhance.Brightness(img).enhance(2)
+            filpic = ImageEnhance.Brightness(img).enhance(2)
             filpic.show()
         elif i =="20":
-            filpic= PIL.ImageOps.autocontrast(img,cutoff=2,ignore=None)
+            filpic= ImageOps.autocontrast(img,cutoff=2,ignore=None)
             filpic.show()
         elif i == "21":
-            filpic = PIL.ImageEnhance.Contrast(img).enhance(2)
+            filpic = ImageEnhance.Contrast(img).enhance(2)
             filpic.show()
         elif i == "22":
             black_and_white_less(img)
