@@ -24,5 +24,5 @@ python pillow.py
 
 o haciendo doble click en el archivo, despues puedes arrastar la imagen a editara la consola y usar las opciones que existen escogiendola con los numeros del teclado y presionando enter 
 
-En la carpeta del repositorio "pillow try" se pueden ver algunos ejemplos de la edicion que se puede hacer con el script
-algunas de estas imagenes fueron sacadas de los instagram "innamoll" y "bethcast20"
+Lo siguiente son algunas cosas que este software puede hacer
+![original Image](/pillow try/beth.png?raw=true "Original")
