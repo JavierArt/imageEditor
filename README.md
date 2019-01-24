@@ -25,4 +25,4 @@ python pillow.py
 o haciendo doble click en el archivo, despues puedes arrastar la imagen a editara la consola y usar las opciones que existen escogiendola con los numeros del teclado y presionando enter 
 
 Lo siguiente son algunas cosas que este software puede hacer
-![original Image](/pillow try/beth.png?raw=true "Original")
+![original Image]("/pillow try/beth.png"?raw=true "Original")
